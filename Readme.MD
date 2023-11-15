@@ -17,12 +17,12 @@ I've had a go at doing this because people tend to pour scorn on folk making min
 
 ### The Cluster nodes
 There are six nodes in the cluster:
-- <b>Master node</b> The master node acts as the I2C master, requesting and reading data from the other 5 nodes. It joins a home WiFi network if present, or creats it's own and acts as an access point.
-- <b>File node</b> The file node has a direct SPI connection to an SD card. It runs a simple web server that can be connected to over WiFi, records log records and can be asked to deliver the contents of a file over I2C.
-- <b>Oui node</b> The Oui node resolves MAC addresses in beacon packets.
-- <b>Network scan node</b> Constantly scans the 2.4Ghz band for WiFi networks and records associated MAC addresses.
-- <b>Tai node</b> The Tai node has a direct serial connection to a GPS unit. On request, tt provides date/time stamps over I2C to the Master node.
-- <b>Beacon Node</b> The beacon node cycles through a list of 2.4Ghz channels collecting any beacon packets. New, not seen before mac addresses are past to the Master node.
+- <b>Master node</b> The master node acts as the I2C master, requesting and reading data from the other 5 nodes.
+- <b>File node</b> The file node has a direct SPI connection to an SD card. It stores log files and delivers reference files.
+- <b>Oui node</b> The Oui node associates Mac addresses with card manufacturers. 
+- <b>Network scan node</b> Constantly scans the 2.4Ghz band for WiFi networks and associates Mac addresses with SSIDs.
+- <b>Tai node</b> The Tai node has a direct serial connection to a GPS unit. On request, tt provides date time stamps to the Master node.
+- <b>Beacon Node</b> The beacon node cycles through a list of 2.4Ghz channels collecting any beacon packets.
 
 
 ## The process flow
