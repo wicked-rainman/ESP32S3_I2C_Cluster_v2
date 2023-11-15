@@ -17,7 +17,7 @@ I've had a go at doing this because people tend to pour scorn on folk making min
 
 ### The Cluster nodes
 There are six nodes in the cluster:
-- <b>Master node</b> The master node acts as the I2C master, requesting and reading data from the other 5 nodes.
+- <b>Master node</b> The master node acts as the I2C master, requesting and reading/processing data from the other 5 nodes.
 - <b>File node</b> The file node has a direct SPI connection to an SD card. It stores log files and delivers reference files.
 - <b>Oui node</b> The Oui node associates Mac addresses with card manufacturers. 
 - <b>Network scan node</b> Constantly scans the 2.4Ghz band for WiFi networks and associates Mac addresses with SSIDs.
