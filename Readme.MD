@@ -27,7 +27,7 @@ There are six nodes in the cluster:
 
 ## The process flow
 
-### 1. I2C Startup
+### 1. Startup
 Master I2C node makes connection attempts to the five other nodes. If an Ack is not received processing stops and the Master node LED flashes red. If there is a USB Serial connection made, diagnostic messages indicate which node cannot be contacted.
 
 ```mermaid
