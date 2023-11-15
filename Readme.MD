@@ -48,9 +48,7 @@ sequenceDiagram
 
 ```
 
-* The Master node sends repeated requests to the file node, asking for the contents of the Oui file that it has stored on an SD card. It parcels up each of these records and passes them to the Oui node for storeage in a lookup table. 
-
-If all nodes appear to be live, three of the nodes start doing some processing:
+* The Master node then sends repeated requests to the file node, asking for the contents of the Oui file that it has stored on an SD card. It parcels up each of these records and passes them to the Oui node for storeage in a lookup table. 
 
 * <b>WiFi node</b>: 
 Starts to scan for WiFi networks. The details of each new network are stored in a structure, indexed by BSSID, with a string value for the SSID. The structures are held in an array that holds up to 200 records. If this count is exceeded no further records are added. An I2C ISR access this buffer to answer SSID lookups requested by the master, so there isn't the processing time available to make the array a link list.
@@ -74,6 +72,8 @@ sequenceDiagram
     Master->>WiFi node: Request SSID
     WiFi node-->>Master: SSID or Unk
 ```
+### Running
+
 1.  The master requests the next beacon packet.
 2.  The beacon node returns the last available packet
 3. If the ADDR1 field in the packet is not a broadcast MAC, the master extracts the four most significant bytes of the Mac address and sends it to the Oui node.
