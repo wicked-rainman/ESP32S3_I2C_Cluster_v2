@@ -1,16 +1,7 @@
 ## ESP32-S3 I2C Cluster version 2 (Work in progress)
 
+### Purpose
 An ESP32S3 I2C cluster that captures WiFi beacon packets and outputs records that allow for a network map to be drawn (I've been using the .dot processor and Gephi for the followon processing).
-
-### Cluster nodes
-There are six nodes in the cluster:
-- <b>Master node</b> The master node acts as the I2C master, requesting and reading data from the other 5 nodes. It joins a home WiFi network if present, or creats it's own and acts as an access point.
-- <b>File node</b> The file node has a direct SPI connection to an SD card. It runs a simple web server that can be connected to over WiFi, records log records and can be asked to deliver the contents of a file over I2C.
-- <b>Oui node</b> The Oui node resolves MAC addresses in beacon packets.
-- <b>Network scan node</b> Constantly scans the 2.4Ghz band for WiFi networks and records associated MAC addresses.
-- <b>Tai node</b> The Tai node has a direct serial connection to a GPS unit. On request, tt provides date/time stamps over I2C to the Master node.
-- <b>Beacon Node</b> The beacon node cycles through a list of 2.4Ghz channels collecting any beacon packets. New, not seen before mac addresses are past to the Master node.
-
 
 ### Background
 Outside of my office window, I tend to see around 60 WiFi networks (Some hidden, some not). It's not much of a performance guide, but tests show that this cluster and the I2C bus easily keeps up with the beacon generation rate. 
@@ -22,6 +13,18 @@ Many of the domestic APs observed seem to offer multiple WiFi networks for rovin
 As I'm only really interested in trying to draw network maps, the Master node performs a dedupe based on the concatenation of the first three Mac addresses in any beacon packets. The dedupe "buffer" is in fact two fifo buffers. One for real macs and the other for rollers. The rolling mac buffer is roughly four times bigger, because that seems to suit the local traffic I see.
 
 I've had a go at doing this because people tend to pour scorn on folk making mini clusters, often saying it's a waste of time. I think it's all about the use case. Using M5StampS3 modules, this cluster cost about half the price of a Raspberry Pi and it seems quite effective. Logic flow for this cluster is as follows:
+
+
+### The Cluster nodes
+There are six nodes in the cluster:
+- <b>Master node</b> The master node acts as the I2C master, requesting and reading data from the other 5 nodes. It joins a home WiFi network if present, or creats it's own and acts as an access point.
+- <b>File node</b> The file node has a direct SPI connection to an SD card. It runs a simple web server that can be connected to over WiFi, records log records and can be asked to deliver the contents of a file over I2C.
+- <b>Oui node</b> The Oui node resolves MAC addresses in beacon packets.
+- <b>Network scan node</b> Constantly scans the 2.4Ghz band for WiFi networks and records associated MAC addresses.
+- <b>Tai node</b> The Tai node has a direct serial connection to a GPS unit. On request, tt provides date/time stamps over I2C to the Master node.
+- <b>Beacon Node</b> The beacon node cycles through a list of 2.4Ghz channels collecting any beacon packets. New, not seen before mac addresses are past to the Master node.
+
+
 
 
 ### I2C Startup
