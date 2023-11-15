@@ -25,9 +25,9 @@ There are six nodes in the cluster:
 - <b>Beacon Node</b> The beacon node cycles through a list of 2.4Ghz channels collecting any beacon packets. New, not seen before mac addresses are past to the Master node.
 
 
+## The process flow
 
-
-### I2C Startup
+### 1. I2C Startup
 Master I2C node makes connection attempts to the five other nodes. If an Ack is not received processing stops and the Master node LED flashes red. If there is a USB Serial connection made, diagnostic messages indicate which node cannot be contacted.
 
 ```mermaid
@@ -47,18 +47,24 @@ sequenceDiagram
     deactivate Master
 
 ```
+### 2. OUI table load
+The Master node sends repeated requests to the file node, which responds with each of OUI records stored on the SD card. These records are then passed to the Oui node and stored in a lookup table. 
 
-If all nodes appear to be live, the master node processing then waits for a button press before activation. During this "dormant" period, two of the nodes start processing:
+### 3. Running
+
+If all nodes appear to be live, four of the nodes start doing some processing:
+
 * <b>WiFi node</b>: 
 Starts to scan for WiFi networks. The details of each new network are stored in a structure, indexed by BSSID, with a string value for the SSID. The structures are held in an array that holds up to 200 records. If this count is exceeded no further records are added. An I2C ISR access this buffer to answer SSID lookups requested by the master, so there isn't the processing time available to make the array a link list.
 
 * <b>Beacon node</b>:
 Starts to cycle through WiFi channels, storing any management beacon packets it can see. An I2C ISR sits waiting for the master to request the next beacon. Up to 255 beacons are stored in a FIFO buffer and the last but one beacon packet is returned. 
 
-* <b>Oui node</b>
-The Oui node has a pre-loaded array of Vendor strings indexed by the four byte OUI value extracted from a Mac. This array can be updated with fresh values by using Netcat on port 180. The node always listens to this port for a connection and updates can take place at any stage. 
-
-### Running
+* <b>Tai node</b>
+Makes a serial connection to the GPS and starts to look for valid TAI records. This can take some time depending on GPS reception, so until such records are received it outputs time stamps based on the built in RTC.
+ 
+* <b>Master node</b>
+The master node loads the Oui node's reference table with the records in the Oui file, passed by the File node. When this has completed the Master looks for the home WiFi network and if it's found, joins. If the home network is unavailable, the Master comes up as an AP "Blue". After performing these functions, the Master waits for a button press before attempting to start beacon packet processing.
 
 ```mermaid
 sequenceDiagram
