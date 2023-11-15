@@ -95,7 +95,7 @@ sequenceDiagram
 
 The master node generates a single CSV type record for each unique beacon packet it sees (In this instance, unique means the concatenation of the first three Mac addresses extracted from the beacon packet have not been seen before). The output format is as follows:
 
-+<b>Date time stamp</b> (yymmdd,hhmmss)
++ <b>Date time stamp</b> (yymmdd,hhmmss)
 
 + <b>Addr</b>1 (Six 2-digit hex numbers)
 
