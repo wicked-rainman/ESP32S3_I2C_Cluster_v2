@@ -1,7 +1,7 @@
 ## ESP32-S3 I2C Cluster version 2 (Work in progress)
 
 ### Purpose
-An ESP32S3 I2C cluster that models the relationship between physical WiFi devices and their connected networks. It captures WiFi beacon packets from visible WiFi networks and associates the MAC address with SSID(s) and network card vendors. Records of the activity are recorded on an SD card. Duplicate exchanges are ignored.
+An ESP32S3 I2C cluster that models the relationship between physical WiFi devices and networks. It captures beacon packets and associates MAC addresses with SSIDs and vendors, recording logs on an SD card. Duplicate beacon frames are ignored. This requires various functions to be performed (WiFi scanning, beacon packet capture, time stamping, Oui matching Etc) and a small cluster seems to be the ideal platform. 
 
 ### Background
 Outside of my office window, I tend to see around 60 WiFi networks (Some hidden, some not). It's not much of a performance guide, but tests show that this cluster and the I2C bus easily keeps up with the beacon generation rate. 
