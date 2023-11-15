@@ -2,7 +2,7 @@
 
 An ESP32S3 I2C cluster that captures WiFi beacon packets and outputs records that allow for a network map to be drawn (I've been using the .dot processor and Gephi for the followon processing).
 
-## Cluster nodes
+### Cluster nodes
 There are six nodes in the cluster:
 - <b>Master node</b> The master node acts as the I2C master, requesting and reading data from the other 5 nodes. It joins a home WiFi network if present, or creats it's own and acts as an access point.
 - <b>File node</b> The file node has a direct SPI connection to an SD card. It runs a simple web server that can be connected to over WiFi, records log records and can be asked to deliver the contents of a file over I2C.
