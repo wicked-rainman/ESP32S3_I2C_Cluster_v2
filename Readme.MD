@@ -87,6 +87,9 @@ sequenceDiagram
 4.  The Oui node looks these four bytes up in it's OUI table and if found, returns the Vendor details or the string OUI_Unk.
 5. The Master then sends the ADDR1 mac address to the WiFi node.
 6. The WiFi node looks the Mac address up to see if it's seen an association with an SSID. If found, an SSID string is returned or the value NET_Unk. Macs can be short (Middle four bytes) or long (All 6 bytes). This helps with the resolution of public access points where a rolling mac address is associated with a publically available SSID (Such as Virgin_Media, BT-WiFi Etc). In this instance, the real home SSID is returned.
+7. Master node requests current time from the Tai node.
+8. Tai replies to master with current time.
+9. Master asks File node to store log record.
 
 ### Data output format
 
