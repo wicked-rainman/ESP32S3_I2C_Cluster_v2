@@ -14,7 +14,7 @@ I've had a go at doing this because people tend to pour scorn on folk making min
 
 
 ### I2C Startup
-Master I2C node makes connection attempts to the three other nodes. If an Ack is not received processing stops and the Master node LED flashes red. If there is a USB Serial connection made, diagnostic messages indicate which node cannot be contacted.
+Master I2C node makes connection attempts to the five other nodes. If an Ack is not received processing stops and the Master node LED flashes red. If there is a USB Serial connection made, diagnostic messages indicate which node cannot be contacted.
 
 ```mermaid
 sequenceDiagram
