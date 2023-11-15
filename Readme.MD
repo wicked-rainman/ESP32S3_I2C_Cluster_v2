@@ -9,7 +9,7 @@ There are six nodes in the cluster:
 - <b>Oui node</b> The Oui node resolves MAC addresses in beacon packets.
 - -<b>Network scan node</b> Constantly scans the 2.4Ghz band for WiFi networks and records associated MAC addresses.
 - <b>Tai node</b> The Tai node has a direct serial connection to a GPS unit. On request, tt provides date/time stamps over I2C to the Master node.
--<b>Beacon Node</b> The beacon node cycles through a list of 2.4Ghz channels collecting any beacon packets. New, not seen before mac addresses are past to the Master node.
+- <b>Beacon Node</b> The beacon node cycles through a list of 2.4Ghz channels collecting any beacon packets. New, not seen before mac addresses are past to the Master node.
 
 
 ### Background
