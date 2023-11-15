@@ -26,6 +26,10 @@ sequenceDiagram
     WiFi node-->>Master: Poll Ack
     Master->>Beacon node: I2C Poll 0x55
     Beacon node-->>Master: Poll Ack
+    Master->>Tai node: I2C Poll
+    Tai node-->>Master: Poll Ack
+    Master->>File node: I2C Poll
+    File node-->>Master: Poll Ack
     deactivate Master
 
 ```
