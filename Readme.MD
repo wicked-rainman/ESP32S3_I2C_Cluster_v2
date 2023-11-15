@@ -62,6 +62,8 @@ Makes a serial connection to the GPS and starts to look for valid TAI records. T
 * <b>Master node</b>
 The master node tries to make a WiFi connection to a specified home network. If it's not available, it configures itself as an access point.
 
+### Running
+
 ```mermaid
 sequenceDiagram
     autonumber
@@ -71,8 +73,13 @@ sequenceDiagram
     Oui node-->> Master: Vendor or Unk
     Master->>WiFi node: Request SSID
     WiFi node-->>Master: SSID or Unk
+    Master->>Tai node: Request timestamp  
+    Tai node-->>Master: Current time
+    Master->>File node: Store log record
+
+    
+
 ```
-### Running
 
 1.  The master requests the next beacon packet.
 2.  The beacon node returns the last available packet
