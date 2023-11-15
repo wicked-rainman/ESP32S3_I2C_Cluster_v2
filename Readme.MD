@@ -28,7 +28,7 @@ There are six nodes in the cluster:
 ## The process flow
 
 ### 1. Startup
-Master I2C node makes connection attempts to the five other nodes. If an Ack is not received processing stops and the Master node LED flashes red. If there is a USB Serial connection made, diagnostic messages indicate which node cannot be contacted.
+* Master I2C node makes connection attempts to the five other nodes. If an Ack is not received processing stops and the Master node LED flashes red. If there is a USB Serial connection made, diagnostic messages indicate which node cannot be contacted.
 
 ```mermaid
 sequenceDiagram
@@ -47,12 +47,10 @@ sequenceDiagram
     deactivate Master
 
 ```
-### 2. OUI table load
-The Master node sends repeated requests to the file node, which responds with each of OUI records stored on the SD card. These records are then passed to the Oui node and stored in a lookup table. 
 
-### 3. Running
+* The Master node sends repeated requests to the file node, asking for the contents of the Oui file that it has stored on an SD card. It parcels up each of these records and passes them to the Oui node for storeage in a lookup table. 
 
-If all nodes appear to be live, four of the nodes start doing some processing:
+If all nodes appear to be live, three of the nodes start doing some processing:
 
 * <b>WiFi node</b>: 
 Starts to scan for WiFi networks. The details of each new network are stored in a structure, indexed by BSSID, with a string value for the SSID. The structures are held in an array that holds up to 200 records. If this count is exceeded no further records are added. An I2C ISR access this buffer to answer SSID lookups requested by the master, so there isn't the processing time available to make the array a link list.
@@ -64,7 +62,7 @@ Starts to cycle through WiFi channels, storing any management beacon packets it 
 Makes a serial connection to the GPS and starts to look for valid TAI records. This can take some time depending on GPS reception, so until such records are received it outputs time stamps based on the built in RTC.
  
 * <b>Master node</b>
-The master node loads the Oui node's reference table with the records in the Oui file, passed by the File node. When this has completed the Master looks for the home WiFi network and if it's found, joins. If the home network is unavailable, the Master comes up as an AP "Blue". After performing these functions, the Master waits for a button press before attempting to start beacon packet processing.
+The master node tries to make a WiFi connection to the specified home network. If it's not available, then it configures itself as an access point.
 
 ```mermaid
 sequenceDiagram
