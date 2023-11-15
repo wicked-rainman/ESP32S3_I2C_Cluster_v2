@@ -1,4 +1,4 @@
-## ESP32-S3 I2C Cluster
+## ESP32-S3 I2C Cluster version 2 (Work in progress)
 
 An ESP32S3 I2C cluster that captures WiFi beacon packets and outputs records that allow for a network map to be drawn (I've been using the .dot processor and Gephi for the followon processing).
 ### Background
